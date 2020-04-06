@@ -36,7 +36,7 @@ class tete{
         ]
         this.EngArr = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", this.Backspace,
         this.Tab, "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", this.Del, 
-        this.CapsLock, "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "\'", this.Enter,
+        this.CapsLock, "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", this.Enter,
         this.Shift, "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", this.ArrowUp, this.Shift,
         this.Ctrl, this.Win, this.Alt, this.Space, this.Alt, this.ArrowLeft, this.ArrowDown, this.ArrowRight, this.Ctrl]
         
@@ -85,7 +85,7 @@ class tete{
             case '\\':
                  return '|';                 
             case '\'':
-                 return '\"';                 
+                 return '"';                 
             case ',':
                  return '<';                 
             case '.':
@@ -102,7 +102,7 @@ class tete{
             case '1':
                  return '!';                 
             case '2':
-                 return '\"';                 
+                 return '"';                 
             case '3':
                  return '№';                 
             case '4':
@@ -185,7 +185,7 @@ function foo(){
     keyboard.classList.add('keyboard')
     container.append(textArea)
 
-    keyboardCodes.forEach((el, i)=>{
+    keyboardCodes.forEach((el)=>{
         let row = document.createElement('div');
         row.classList.add('row');
         el.forEach(code => {
@@ -213,7 +213,6 @@ function foo(){
 
 let local = new tete('Eng', 'Low')
 let KEYS = document.querySelectorAll('.key');
-let keyboard = document.querySelector('.keyboard');
 let textarea = document.querySelector('textarea');
 refreshKeyboard()
 
@@ -233,24 +232,20 @@ function ProcessKeyDown(activeKey, textInKey){
       if(textInKey == 'Shift'){
           activeKey.classList.add('active')
           local.changeCase()
-          refreshKeyboard()
+          refreshKeyboard()   
           return;
       }
       activeKey.classList.add('active')
       if(textInKey == 'Tab') textInKey = '\t';
       if(textInKey == 'Space') textInKey = ' ';
       if(textInKey == 'Enter') textInKey = '\n'
-      if(textInKey == 'Ctrl' || textInKey == 'Alt') textInKey = '';
+      if(textInKey == 'Ctrl' || textInKey == 'Alt' || textInKey == 'Win') textInKey = '';
       if(textInKey == 'Backspace' || textInKey == 'Del') {
           textarea.textContent = textarea.textContent.substr(0, textarea.textContent.length - 1)
           return;
       }
       textarea.textContent += textInKey;
 }
-function processKeyUp(key) {
-     
-}
-
 document.addEventListener('keydown', function(event){
      event.preventDefault()
      let activeKey = document.querySelector(`.key${event.keyCode}`); 
@@ -277,7 +272,6 @@ KEYS.forEach(el=>{
           let activeKey = event.currentTarget;
           let textInKey = activeKey.querySelector('.textInKey').textContent;
           ProcessKeyDown(activeKey, textInKey)
-          
      })
      el.addEventListener('mouseup', (event)=>{
           if(event.currentTarget.querySelector('.textInKey').textContent == 'CapsLock'){
