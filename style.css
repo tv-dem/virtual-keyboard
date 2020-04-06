@@ -5,6 +5,7 @@
     font-size: 17px;
     padding: 0;
     margin: 0;
+    user-select: none;
 }
 
 .keyboard{
@@ -49,7 +50,6 @@ textarea{
     background-color: silver;
 }
 .key > *{
-    user-select: none;
     position: absolute;
     top:50%;
     left:50%;
